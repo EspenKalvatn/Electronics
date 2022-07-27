@@ -3,8 +3,9 @@
 Servo servo1;
 Servo servo2;
 
-int servo1Pin = ; // Pin for the servo 1
-int servo2Pin = ; // Pin for the servo 2
+
+int servo1Pin = 9; // Pin for the servo 1
+int servo2Pin = 10; // Pin for the servo 2
 int buttonPin = 2; // Pin for the button
 int ledPin = 6; // Pin for the LED-eyes
 
@@ -23,16 +24,16 @@ void setup() {
   servo2.attach(servo2Pin);
   pinMode(buttonPin, INPUT);
   pinMode(ledPin, OUTPUT);
-   
+  
   openHelmet; // Opens the helmet when the arduino is turned on (starting position)
   isOpen = true;
 }
 
 void loop() {
   // put your main code here, to run repeatedly:
-  val = digitalRead(buttonPin);
+  int val = digitalRead(buttonPin);
   delay(10);
-  val2 = digitalRead(buttonPin);
+  int val2 = digitalRead(buttonPin);
 
   if (val == val2) {
     if (isOpen) { // opening the helmet if the helmet is closed and the button is pressed
