@@ -30,6 +30,9 @@ const int rightB = 11;
 const int rightC = 12;
 const int rightBack = 13;
 
+const int roll = 18;
+const int pitch = 19;
+
 // TODO: Find out what digital pins to use for the different buttons.
 // TODO: Find out what analog pins to use for roll and pitch.
 
@@ -68,8 +71,10 @@ void setup() {
     Joystick.setXAxisRange(-1, 1);
     Joystick.setYAxisRange(-1, 1);
 
-    // ? Add Joystick roll and pitch?
-    // TODO: Find out if needed.
+
+    // ? Should the range be set, and if so, to what?
+    Joystick.setRxAxisRange(-512, 512); 
+    Joystick.setRyAxisRange(-512, 512);
 }
 
 
@@ -79,7 +84,14 @@ void loop() {
     
     buttons(); // Reading pin values for the buttons.
 	
-    // TODO: Add logic for roll and pitch.
+    // ? Is this the right way? Seen multiple ways of doing this.
+    int rollValue = analogRead(roll);
+    roll = map(roll, 0, 1023, 0, 255);
+    Joystick.setRxAxis(roll);
+
+    int pitchValue = analogRead(pitch);
+    pitchValue = map(pitchValue, 0, 1023, 0, 255);
+    Joystick.setRxAxis(pitchValue);
 
     delay(10); // TODO: Find the right amount of delay needed.
 }
