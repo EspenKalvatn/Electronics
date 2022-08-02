@@ -34,8 +34,7 @@ const int rightBack = 13;
 // TODO: Find out what analog pins to use for roll and pitch.
 
 // Last state of the buttons
-int lastButtonState[12] = {0,0,0, 0,0,0, 0,0,0, 0,0,0}; // ? Is this the best way to do this? Should the button number be linked to the button index somehow?
-
+int lastButtonState[12] = {0,0,0, 0,0,0, 0,0,0, 0,0,0}; 
 
 Joystick_ Joystick(JOYSTICK_DEFAULT_REPORT_ID, JOYSTICK_TYPE_MULTI_AXIS,
   8, 0,                  // Button Count, Hat Switch Count
@@ -76,43 +75,44 @@ void setup() {
 
 void loop() {
 
-    // Reading pin values for the gamepad
-    gamepad();
-
-
-    // TODO: Make for-loop to go through each button.
-    // TODO: Check what parameter the readButton() method needs.
-
+    gamepad(); // Reading pin values for the gamepad.
+    
+    buttons(); // Reading pin values for the buttons.
+	
     // TODO: Add logic for roll and pitch.
 
     delay(10); // TODO: Find the right amount of delay needed.
 }
 
 /**
- * @brief 
+ * @brief Goes through each of the buttons on the flight yoke and checks if the states of the buttons has changed.
+ * Buttons: 6-12 
+ * Indexes: 5-11 
+ * Pins: 7-13
  * 
- * @param buttonIndex 
- * @param pinToButtonMap 
  */
-void readButton(int buttonIndex, int pinToButtonMap) {
-    int currentButtonState = !digitalRead(pinToButtonMap);
-	if (currentButtonState != lastButtonState[buttonIndex]) {
-	    Joystick.setButton(buttonIndex, currentButtonState);
-	    lastButtonState[buttonIndex] = currentButtonState;
-	}
+void buttons() {
+    for (int buttonIndex = 5; buttonIndex < 12; buttonIndex++) {
+        int currentButtonState = !digitalRead(buttonIndex + 2);
+
+        if (currentButtonState != lastButtonState[buttonIndex]) {
+            Joystick.setButton(buttonIndex, currentButtonState);
+            lastButtonState[buttonIndex] = currentButtonState;
+        }
+    }
 }
 
 
 /**
- * @brief 
- * 
+ * @brief Goes through each of the buttons on the gamepad and checks if the state of the buttons has changed.
+ * Updates the X and Y axis according to the button states.
  */
 void gamepad() {
   // Read pin values
-    for (int index = 0; index < 5; index++) {
-        int currentButtonState = !digitalRead(index + 2);
-        if (currentButtonState != lastButtonState[index]) {
-            switch (index) {
+    for (int buttonIndex = 0; buttonIndex < 5; buttonIndex++) {
+        int currentButtonState = !digitalRead(buttonIndex + 2);
+        if (currentButtonState != lastButtonState[buttonIndex]) {
+            switch (buttonIndex) {
                 case 0: // UP
                 if (currentButtonState == 1) {
                     Joystick.setYAxis(-1);
@@ -145,7 +145,7 @@ void gamepad() {
                 Joystick.setButton(0, currentButtonState);
                 break;
             }
-        lastButtonState[index] = currentButtonState;
+        lastButtonState[buttonIndex] = currentButtonState;
         }
     }
 }
