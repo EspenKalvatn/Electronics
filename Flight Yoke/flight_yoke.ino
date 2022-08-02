@@ -86,8 +86,8 @@ void loop() {
 	
     // ? Is this the right way? Seen multiple ways of doing this.
     int rollValue = analogRead(roll);
-    roll = map(roll, 0, 1023, 0, 255);
-    Joystick.setRxAxis(roll);
+    rollValue = map(rollValue, 0, 1023, 0, 255);
+    Joystick.setRxAxis(rollValue);
 
     int pitchValue = analogRead(pitch);
     pitchValue = map(pitchValue, 0, 1023, 0, 255);
