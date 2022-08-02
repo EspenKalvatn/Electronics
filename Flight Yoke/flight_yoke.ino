@@ -51,7 +51,7 @@ void setup() {
     pinMode(right, INPUT_PULLUP);
     pinMode(down, INPUT_PULLUP);
     pinMode(left, INPUT_PULLUP);
-    pinMode(select, INPUT_PULLUP);
+    pinMode(select, INPUT_PULLUP); // ? Do we need to rename this variable? Is it a protected name in C++/Arduino?
 
     pinMode(leftA, INPUT_PULLUP);
     pinMode(leftB, INPUT_PULLUP);
