@@ -59,7 +59,7 @@ void loop() {
     Joystick.setRyAxis(analogRead(A1)); // Pitch
 
     // Reading pin values for the gamepad/buttons
-    for (int buttonIndex = 0; buttonIndex < sizeof(lastButtonState); buttonIndex++) {
+    for (int buttonIndex = 0; buttonIndex < 12; buttonIndex++) {
         int currentButtonState = !digitalRead(buttonToPinMap[buttonIndex]); // Gets the current state, by using the mapping from the button index to the pin value.
         if (currentButtonState != lastButtonState[buttonIndex]) { // Checks if the current state is different from the last registered state.
             switch (buttonIndex) { // Finds the right button to change (according to the button index).
