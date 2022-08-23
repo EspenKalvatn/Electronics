@@ -159,13 +159,13 @@ void setLights(int state) {
  * @param red the RGB value of red.
  * @param green the RGB value of green.
  * @param blue the RGB value of blue.
- * @param delay how much delay you want between the blinks.
+ * @param delayTime how much delay you want between the blinks.
  */
-void blink(byte red, byte green, byte blue, int delay) {
+void blink(byte red, byte green, byte blue, int delayTime) {
     setAllLeds(0, 0, 0, PIXEL_COUNT);
-    delay(delay);
+    delay(delayTime);
     setAllLeds(red, green, blue, PIXEL_COUNT);
-    delay(delay);
+    delay(delayTime);
 }
 
 
